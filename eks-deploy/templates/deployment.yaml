@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nw-{{ .Values.app.app_name  }}-dep
+  labels:
+  {{- include "{{ .Values.app.app_name  }}.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: nw-{{ .Values.app.app_name  }}
+  template:
+    metadata:
+      labels:
+        {{- include "{{ .Values.app.app_name  }}.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: nw-{{ .Values.app.app_name  }}
+          image: {{ .Values.app.container.image }}
+          env:
+            - name: SERVER_PORT
+              value: "8080"
+            - name: SERVER_SERVLET_CONTEXT_PATH
+              value: {{ .Values.app.server_servlet_context_path }} 
+            - name: S3_BUCKET
+              value: {{ .Values.app.s3_bucket }}               
+            - name: SECURITY_OAUTH2_RESOURCESERVER_JWT_JWT_SET_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.app.env  }}-{{ .Values.app.app_name  }}-sec-auth
+                  key: auth-url        
+            - name: SPRING_DATA_MONGODB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.app.env  }}-{{ .Values.app.app_name  }}-sec-auth
+                  key: mongo_user_name  
+            - name: SPRING_DATA_MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.app.env  }}-{{ .Values.app.app_name  }}-sec-auth
+                  key: mongo_pass  
+            - name: SPRING_DATA_MONGODB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.app.env  }}-{{ .Values.app.app_name  }}-sec-auth
+                  key: mongo_url  
+            - name: SPRING_DATA_MONGODB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.app.env  }}-{{ .Values.app.app_name  }}-sec-auth
+                  key: mongo_db_name  
+            - name: SPRING_DATA_MONGODB_URI
+              value: mongodb://$(SPRING_DATA_MONGODB_USERNAME):$(SPRING_DATA_MONGODB_PASSWORD)@$(SPRING_DATA_MONGODB_URL):27017/nextwork-staging-docdb?ssl=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
+          imagePullPolicy: IfNotPresent
+          resources:
+           {{- toYaml .Values.app.computerc | nindent 12 }}    
+
+#858728894252.dkr.ecr.eu-central-1.amazonaws.com/nextwork-repo:eks-nw-ui_28289312_staging

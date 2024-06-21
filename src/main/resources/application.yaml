@@ -1,0 +1,42 @@
+management:
+  endpoint:
+    info:
+      enabled: true
+    restart:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+server:
+  port: 8084
+  ssl:
+    enabled: true
+    key-alias: server
+    key-store: /app/springboot.jks
+    key-store-type: JKS
+    key-password: changeit
+    key-store-password: changeit
+
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+      enabled : true   
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  application:
+    name: nextwork-tag-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/nextworkdb
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri:   ${SECURITY_OAUTH2_RESOURCESERVER_JWT_JWT_SET_URI}
+

@@ -1,4 +1,4 @@
-# Eks Poc Infra
+# eks-nw-tag-service
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://code.siemens.com/blrise/productive/nextwork/eks-poc-infra.git
+git remote add origin https://code.siemens.com/blrise/productive/nextwork/eks-nw-tag-service.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://code.siemens.com/blrise/productive/nextwork/eks-poc-infra/-/settings/integrations)
+- [ ] [Set up project integrations](https://code.siemens.com/blrise/productive/nextwork/eks-nw-tag-service/-/settings/integrations)
 
 ## Collaborate with your team
 

@@ -1,0 +1,24 @@
+management:
+  endpoint:
+    info:
+      enabled: true
+    restart:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+server:
+  port: 8081
+spring:
+  application:
+    name: nextwork-tag-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/nextworkdb
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri:  https://myid-qa.siemens.com/ext/oauth/jwks
+
+ 

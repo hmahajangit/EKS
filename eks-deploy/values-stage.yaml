@@ -1,0 +1,37 @@
+app:
+  replicas: 1
+  env: pre-staging
+  app_name: tag-service
+  server_servlet_context_path: /tag-service
+  s3_bucket: nextwork-pre-staging-eks-master-appdata
+  container:
+    image: image_url
+    #image: 858728894252.dkr.ecr.eu-central-1.amazonaws.com/nextwork-repo:eks-nw-ui_28289312_staging
+  computerc:
+    limits:
+      cpu: 0.2
+      memory: 1024Mi
+    requests:
+      cpu: 0.2
+      memory: 512Mi
+
+hpa:
+  enabled: false
+
+
+#config:
+#  name: config.yaml
+#  data:
+#    timeout: 10s
+#    logfile: /app/var/log.txt
+#    database:
+#      ip: 10.20.30.20
+#      name: ui-dev
+sec_auth_properties:
+  sec_auth_url: aHR0cHM6Ly9teWlkLXFhLnNpZW1lbnMuY29tL2V4dC9vYXV0aC9qd2tz
+  mongo_user_name: bmV4dHdvcmtkYg==
+  mongo_pass: MTNHNVpQVlFsaHdWRVJQWml4TVg=
+  mongo_url: bmV4dHdvcmstcHJlLXN0YWdpbmctZWtzLWRvY2RiLmNsdXN0ZXItYzJ3ZWpjbXJheWpmLmV1LWNlbnRyYWwtMS5kb2NkYi5hbWF6b25hd3MuY29t
+  mongo_db_name: bmV4dHdvcmstc3RhZ2luZy1kb2NkYg==
+
+
